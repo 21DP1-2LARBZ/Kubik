@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubs</title>
+    <style>
+        body {
+            background-image: url('tmb_195879_1817.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        #container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .cube {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            position: absolute;
+            transition: background-color 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        /* Стили для кнопки */
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            left: 600px;
+            background-color: #a2a2a2; /* Цвет фона кнопки */
+            color: #fff; /* Цвет текста кнопки */
+            border: none; 
+            border-radius: 5px; /* Закругляем углы */
+            outline: none; /* Убираем контур вокруг кнопки при фокусе */
+            transition: background-color 0.3s ease-in-out; /* Плавное изменение цвета фона */
+        }
+
+        /* Стили для кнопки при наведении */
+        button:hover {
+            background-color: #7a7a7a; /* Цвет фона при наведении */
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="cube"></div>
+        <button id="changeColorButton">Mainīt krāsu un lokāciju</button>
+    </div>
+    <script>
+        let clickCount = 0;
+
+        const cube = document.querySelector('.cube');
+        const changeColorButton = document.getElementById('changeColorButton');
+
+        changeColorButton.addEventListener('click', function () {
+            // Изменяем цвет куба на случайный
+            const randomColor = getRandomColor();
+            cube.style.backgroundColor = randomColor;
+
+            // Генерируем случайное положение для куба в пределах страницы
+            const maxX = window.innerWidth - cube.clientWidth;
+            const maxY = window.innerHeight - cube.clientHeight;
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            // Генерируем случайный угол поворота для куба
+            const randomRotation = Math.floor(Math.random() * 360);
+
+            // Применяем изменения к положению и повороту куба
+            cube.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${randomRotation}deg)`;
+
+            // Увеличиваем счетчик нажатий и обновляем текст на кнопке
+            clickCount++;
+            changeColorButton.textContent = `Mainīt krāsu un lokāciju (${clickCount} reizes)`;
+        });
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    </script>
+</body>
+</html>
